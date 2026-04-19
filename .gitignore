@@ -1,0 +1,37 @@
+# Maven build output
+target/
+*.war
+*.jar
+*.ear
+
+# NetBeans IDE files
+nbproject/private/
+nb-configuration.xml
+nbactions.xml
+build/
+dist/
+
+# IntelliJ / Eclipse / VS Code
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temp files
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+
+# Environment / secrets
+.env
+*.key
+*.pem
