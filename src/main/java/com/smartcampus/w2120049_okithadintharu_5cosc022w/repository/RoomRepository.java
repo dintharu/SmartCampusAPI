@@ -22,7 +22,7 @@ public class RoomRepository {
     
      private final Map<String, Room> rooms = new ConcurrentHashMap<>();
 
-    public RoomRepository() {
+    private RoomRepository() {
     }
      
       public static RoomRepository getInstance() {
