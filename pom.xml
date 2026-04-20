@@ -7,6 +7,7 @@
     <artifactId>SmartCampusAPI</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -15,15 +16,17 @@
         <jersey.version>2.35</jersey.version>
         <jackson.version>2.13.4</jackson.version>
     </properties>
+
     <dependencies>
-        <!-- Java EE 8 API: provides javax.ws.rs.* as required by spec line 175 -->
+        <!-- Servlet API: provided by Tomcat 9 at runtime -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0.1</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Jersey: the JAX-RS reference implementation -->
+
+        <!-- Jersey JAX-RS implementation — BUNDLED in WAR (Tomcat doesn't provide it) -->
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
@@ -39,7 +42,8 @@
             <artifactId>jersey-server</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-        <!-- Jackson for JSON -->
+
+        <!-- Jackson for JSON — BUNDLED in WAR -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
@@ -51,6 +55,7 @@
             <version>${jackson.version}</version>
         </dependency>
     </dependencies>
+
     <build>
         <finalName>SmartCampusAPI</finalName>
         <plugins>
