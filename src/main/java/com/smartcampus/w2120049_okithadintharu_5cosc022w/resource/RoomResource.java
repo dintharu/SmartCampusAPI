@@ -21,14 +21,14 @@ public class RoomResource {
 
     private final RoomRepository roomRepository = RoomRepository.getInstance();
 
-    
+   
     @GET
     public Response listAllRooms() {
         List<Room> rooms = roomRepository.findAll();
         return Response.ok(rooms).build();
     }
 
-    
+
     @GET
     @Path("/{roomId}")
     public Response getRoomById(@PathParam("roomId") String roomId) {
