@@ -2,10 +2,14 @@ package com.smartcampus.w2120049_okithadintharu_5cosc022w.resource;
 
 import com.smartcampus.w2120049_okithadintharu_5cosc022w.exception.InvalidInputException;
 import com.smartcampus.w2120049_okithadintharu_5cosc022w.exception.ResourceNotFoundException;
+import com.smartcampus.w2120049_okithadintharu_5cosc022w.exception.RoomNotEmptyException;
 import com.smartcampus.w2120049_okithadintharu_5cosc022w.model.Room;
+import com.smartcampus.w2120049_okithadintharu_5cosc022w.model.Sensor;
 import com.smartcampus.w2120049_okithadintharu_5cosc022w.repository.RoomRepository;
+import com.smartcampus.w2120049_okithadintharu_5cosc022w.repository.SensorRepository;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,6 +29,7 @@ import java.util.List;
 public class RoomResource {
 
     private final RoomRepository roomRepository = RoomRepository.getInstance();
+    private final SensorRepository sensorRepository = SensorRepository.getInstance();
 
     
     @GET
@@ -33,7 +38,7 @@ public class RoomResource {
         return Response.ok(rooms).build();
     }
 
-
+    
     @GET
     @Path("/{roomId}")
     public Response getRoomById(@PathParam("roomId") String roomId) {
@@ -61,5 +66,26 @@ public class RoomResource {
                 .build();
 
         return Response.created(location).entity(saved).build();
+    }
+
+    
+    @DELETE
+    @Path("/{roomId}")
+    public Response deleteRoom(@PathParam("roomId") String roomId) {
+        if (!roomRepository.exists(roomId)) {
+            throw new ResourceNotFoundException("Room with id '" + roomId + "' does not exist.");
+        }
+
+        List<Sensor> linkedSensors = sensorRepository.findByRoomId(roomId);
+        if (!linkedSensors.isEmpty()) {
+            throw new RoomNotEmptyException(
+                    "Room '" + roomId + "' cannot be deleted because it still has "
+                            + linkedSensors.size() + " linked sensor(s). "
+                            + "Remove or reassign the sensors before deleting the room."
+            );
+        }
+
+        roomRepository.deleteById(roomId);
+        return Response.noContent().build();
     }
 }
