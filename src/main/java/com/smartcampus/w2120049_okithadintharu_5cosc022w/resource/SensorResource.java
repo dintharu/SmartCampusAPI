@@ -14,6 +14,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,11 +33,17 @@ public class SensorResource {
 
     
     @GET
-    public Response listAllSensors() {
-        List<Sensor> sensors = sensorRepository.findAll();
+    public Response listAllSensors(@QueryParam("type") String type) {
+        List<Sensor> sensors;
+        if (type == null || type.trim().isEmpty()) {
+            sensors = sensorRepository.findAll();
+        } else {
+            sensors = sensorRepository.findByType(type.trim());
+        }
         return Response.ok(sensors).build();
     }
 
+    
     @GET
     @Path("/{sensorId}")
     public Response getSensorById(@PathParam("sensorId") String sensorId) {
@@ -50,7 +57,6 @@ public class SensorResource {
    
     @POST
     public Response createSensor(Sensor sensor, @Context UriInfo uriInfo) {
-        // Basic shape validation
         if (sensor == null || sensor.getId() == null || sensor.getId().trim().isEmpty()) {
             throw new InvalidInputException("Sensor 'id' is required.");
         }
@@ -64,7 +70,6 @@ public class SensorResource {
             throw new InvalidInputException("Sensor 'roomId' is required.");
         }
 
-        // Linked-resource integrity: the referenced Room must exist.
         if (!roomRepository.exists(sensor.getRoomId())) {
             throw new LinkedResourceNotFoundException(
                     "Cannot create sensor: referenced room '"
@@ -81,7 +86,7 @@ public class SensorResource {
         return Response.created(location).entity(saved).build();
     }
 
-    
+   
     @DELETE
     @Path("/{sensorId}")
     public Response deleteSensor(@PathParam("sensorId") String sensorId) {
