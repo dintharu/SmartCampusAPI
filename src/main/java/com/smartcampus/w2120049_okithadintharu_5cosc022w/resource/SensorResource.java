@@ -43,7 +43,7 @@ public class SensorResource {
         return Response.ok(sensors).build();
     }
 
-    
+   
     @GET
     @Path("/{sensorId}")
     public Response getSensorById(@PathParam("sensorId") String sensorId) {
@@ -86,7 +86,7 @@ public class SensorResource {
         return Response.created(location).entity(saved).build();
     }
 
-   
+    
     @DELETE
     @Path("/{sensorId}")
     public Response deleteSensor(@PathParam("sensorId") String sensorId) {
@@ -95,5 +95,16 @@ public class SensorResource {
         }
         sensorRepository.deleteById(sensorId);
         return Response.noContent().build();
+    }
+
+
+    @Path("/{sensorId}/readings")
+    public SensorReadingResource readings(@PathParam("sensorId") String sensorId) {
+        if (!sensorRepository.exists(sensorId)) {
+            throw new ResourceNotFoundException(
+                    "Sensor with id '" + sensorId + "' does not exist."
+            );
+        }
+        return new SensorReadingResource(sensorId);
     }
 }
