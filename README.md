@@ -657,11 +657,3 @@ Contrast this with the manual approach — sprinkling `Logger.info("handling GET
 This isn't just an academic preference — it's the same pattern every enterprise framework uses. Spring has `HandlerInterceptor`. Servlets have `javax.servlet.Filter`. Micronaut has `HttpFilter`. All of them exist because the same realisation keeps hitting the same wall: cross-cutting code belongs outside the business logic, not sprinkled through it.
 
 ---
-
-*End of Report.*
-
----
-
-**Repository:** [https://github.com/dintharu/SmartCampusAPI](https://github.com/dintharu/SmartCampusAPI)  
-**Author:** K.G. Okitha Dintharu (w2120049 / 20240578)  
-**Submitted:** 24 April 2026
