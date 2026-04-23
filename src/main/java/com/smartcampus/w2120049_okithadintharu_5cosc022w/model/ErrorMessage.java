@@ -1,20 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.smartcampus.w2120049_okithadintharu_5cosc022w.model;
 
-/**
- *
- * @author LENOVO
- */
 public class ErrorMessage {
- 
+
     private int errorCode;
-    
+
     private String errorMessage;
-    
-     private String documentation;
+
+    private String documentation;
 
     public ErrorMessage() {
     }
@@ -51,13 +43,11 @@ public class ErrorMessage {
 
     @Override
     public String toString() {
-          return "ErrorMessage{"
+        return "ErrorMessage{"
                 + "errorCode=" + errorCode
                 + ", errorMessage='" + errorMessage + '\''
                 + ", documentation='" + documentation + '\''
                 + '}';
     }
-     
-     
-    
+
 }

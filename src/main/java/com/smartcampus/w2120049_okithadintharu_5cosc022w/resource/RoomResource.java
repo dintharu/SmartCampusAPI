@@ -22,7 +22,6 @@ import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
 
-
 @Path("/rooms")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -31,14 +30,12 @@ public class RoomResource {
     private final RoomRepository roomRepository = RoomRepository.getInstance();
     private final SensorRepository sensorRepository = SensorRepository.getInstance();
 
-    
     @GET
     public Response listAllRooms() {
         List<Room> rooms = roomRepository.findAll();
         return Response.ok(rooms).build();
     }
 
-    
     @GET
     @Path("/{roomId}")
     public Response getRoomById(@PathParam("roomId") String roomId) {
@@ -49,7 +46,6 @@ public class RoomResource {
         return Response.ok(room).build();
     }
 
-    
     @POST
     public Response createRoom(Room room, @Context UriInfo uriInfo) {
         if (room == null || room.getId() == null || room.getId().trim().isEmpty()) {
@@ -68,7 +64,6 @@ public class RoomResource {
         return Response.created(location).entity(saved).build();
     }
 
-    
     @DELETE
     @Path("/{roomId}")
     public Response deleteRoom(@PathParam("roomId") String roomId) {
@@ -80,8 +75,8 @@ public class RoomResource {
         if (!linkedSensors.isEmpty()) {
             throw new RoomNotEmptyException(
                     "Room '" + roomId + "' cannot be deleted because it still has "
-                            + linkedSensors.size() + " linked sensor(s). "
-                            + "Remove or reassign the sensors before deleting the room."
+                    + linkedSensors.size() + " linked sensor(s). "
+                    + "Remove or reassign the sensors before deleting the room."
             );
         }
 

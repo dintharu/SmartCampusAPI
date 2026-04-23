@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.smartcampus.w2120049_okithadintharu_5cosc022w.model;
 
-/**
- *
- * @author LENOVO
- */
 public class Sensor {
-    
-     private String id;
-     
-      private String type;
-      
-       private String status;
-       
-       private double currentValue;
-       
-        private String roomId;
+
+    private String id;
+
+    private String type;
+
+    private String status;
+
+    private double currentValue;
+
+    private String roomId;
 
     public Sensor() {
     }
@@ -81,7 +73,5 @@ public class Sensor {
                 + ", roomId='" + roomId + '\''
                 + '}';
     }
-        
-        
-    
+
 }

@@ -15,7 +15,7 @@ public class LinkedResourceNotFoundExceptionMapper
     @Override
     public Response toResponse(LinkedResourceNotFoundException ex) {
         ErrorMessage body = new ErrorMessage(422, "Unprocessable Entity", ex.getMessage());
-        return Response.status(422)  // Jersey doesn't have a Status enum for 422
+        return Response.status(422) // Jersey doesn't have a Status enum for 422
                 .entity(body)
                 .type(MediaType.APPLICATION_JSON)
                 .build();

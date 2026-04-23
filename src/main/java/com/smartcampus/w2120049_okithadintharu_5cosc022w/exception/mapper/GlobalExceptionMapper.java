@@ -10,7 +10,6 @@ import javax.ws.rs.ext.Provider;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @Provider
 public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
 
@@ -29,8 +28,8 @@ public class GlobalExceptionMapper implements ExceptionMapper<Throwable> {
             ErrorMessage body = new ErrorMessage(
                     status,
                     Response.Status.fromStatusCode(status) != null
-                            ? Response.Status.fromStatusCode(status).getReasonPhrase()
-                            : "Error",
+                    ? Response.Status.fromStatusCode(status).getReasonPhrase()
+                    : "Error",
                     ex.getMessage() != null ? ex.getMessage() : "Request could not be processed."
             );
             return Response.status(status)

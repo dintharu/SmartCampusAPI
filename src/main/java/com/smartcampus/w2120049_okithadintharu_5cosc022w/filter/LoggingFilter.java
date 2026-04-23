@@ -8,17 +8,18 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-
 @Provider
 public class LoggingFilter
         implements ContainerRequestFilter, ContainerResponseFilter {
 
     private static final Logger LOGGER = Logger.getLogger(LoggingFilter.class.getName());
 
-    /** Context property key used to shuttle the request start time to the response phase. */
+    /**
+     * Context property key used to shuttle the request start time to the
+     * response phase.
+     */
     private static final String START_TIME_PROPERTY = "smartcampus.requestStartTime";
 
-    
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         long startTime = System.currentTimeMillis();
@@ -31,10 +32,9 @@ public class LoggingFilter
         ));
     }
 
- 
     @Override
     public void filter(ContainerRequestContext requestContext,
-                       ContainerResponseContext responseContext) throws IOException {
+            ContainerResponseContext responseContext) throws IOException {
         Object startTimeProperty = requestContext.getProperty(START_TIME_PROPERTY);
         long elapsedMs = 0L;
         if (startTimeProperty instanceof Long) {

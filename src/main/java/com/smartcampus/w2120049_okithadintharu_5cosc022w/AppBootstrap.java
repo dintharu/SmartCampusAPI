@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 @WebListener
 public class AppBootstrap implements ServletContextListener {
 
@@ -62,8 +61,8 @@ public class AppBootstrap implements ServletContextListener {
 
     /**
      * Creates five sample sensors distributed across two of the seeded rooms.
-     * The Robotics Lab is intentionally left empty to make the
-     * "delete a room with no sensors" test path immediately demonstrable.
+     * The Robotics Lab is intentionally left empty to make the "delete a room
+     * with no sensors" test path immediately demonstrable.
      */
     private void seedSensors() {
         sensorRepository.save(new Sensor("TEMP-001", "Temperature", "ACTIVE", 21.5, "LIB-301"));
@@ -73,15 +72,10 @@ public class AppBootstrap implements ServletContextListener {
         sensorRepository.save(new Sensor("OCC-002", "Occupancy", "ACTIVE", 87, "LEC-12"));
     }
 
-    /**
-     * Adds a small history of readings to one sensor so that
-     * {@code GET /sensors/TEMP-001/readings} returns a non-empty payload
-     * out of the box.
-     */
     private void seedSampleReadings() {
         long now = System.currentTimeMillis();
         readingRepository.add("TEMP-001", new SensorReading("R-1001", now - 600_000, 21.1));
         readingRepository.add("TEMP-001", new SensorReading("R-1002", now - 300_000, 21.3));
-        readingRepository.add("TEMP-001", new SensorReading("R-1003", now,           21.5));
+        readingRepository.add("TEMP-001", new SensorReading("R-1003", now, 21.5));
     }
 }

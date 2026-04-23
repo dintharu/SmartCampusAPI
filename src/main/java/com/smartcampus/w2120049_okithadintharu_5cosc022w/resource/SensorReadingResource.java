@@ -19,7 +19,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
-
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorReadingResource {
@@ -28,12 +27,10 @@ public class SensorReadingResource {
     private final SensorRepository sensorRepository = SensorRepository.getInstance();
     private final SensorReadingRepository readingRepository = SensorReadingRepository.getInstance();
 
-   
     public SensorReadingResource(String sensorId) {
         this.sensorId = sensorId;
     }
 
-   
     @GET
     public Response getReadings() {
         List<SensorReading> readings = readingRepository.findBySensorId(sensorId);

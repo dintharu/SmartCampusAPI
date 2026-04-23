@@ -22,7 +22,6 @@ import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
 
-
 @Path("/sensors")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -31,7 +30,6 @@ public class SensorResource {
     private final SensorRepository sensorRepository = SensorRepository.getInstance();
     private final RoomRepository roomRepository = RoomRepository.getInstance();
 
-    
     @GET
     public Response listAllSensors(@QueryParam("type") String type) {
         List<Sensor> sensors;
@@ -43,7 +41,6 @@ public class SensorResource {
         return Response.ok(sensors).build();
     }
 
-   
     @GET
     @Path("/{sensorId}")
     public Response getSensorById(@PathParam("sensorId") String sensorId) {
@@ -54,7 +51,6 @@ public class SensorResource {
         return Response.ok(sensor).build();
     }
 
-   
     @POST
     public Response createSensor(Sensor sensor, @Context UriInfo uriInfo) {
         if (sensor == null || sensor.getId() == null || sensor.getId().trim().isEmpty()) {
@@ -73,7 +69,7 @@ public class SensorResource {
         if (!roomRepository.exists(sensor.getRoomId())) {
             throw new LinkedResourceNotFoundException(
                     "Cannot create sensor: referenced room '"
-                            + sensor.getRoomId() + "' does not exist."
+                    + sensor.getRoomId() + "' does not exist."
             );
         }
 
@@ -86,7 +82,6 @@ public class SensorResource {
         return Response.created(location).entity(saved).build();
     }
 
-    
     @DELETE
     @Path("/{sensorId}")
     public Response deleteSensor(@PathParam("sensorId") String sensorId) {
@@ -96,7 +91,6 @@ public class SensorResource {
         sensorRepository.deleteById(sensorId);
         return Response.noContent().build();
     }
-
 
     @Path("/{sensorId}/readings")
     public SensorReadingResource readings(@PathParam("sensorId") String sensorId) {

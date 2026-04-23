@@ -10,23 +10,15 @@ import javax.ws.rs.core.UriInfo;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class DiscoveryResource {
 
-    /**
-     * Returns the API discovery payload.
-     *
-     * @param uriInfo Jersey-injected request context, used to build
-     *                absolute resource URLs that reflect the current host.
-     * @return a JSON document describing the API and its resources.
-     */
     @GET
     public Response discover(@Context UriInfo uriInfo) {
 
         // Build absolute resource URLs that match the current deployment.
-        String roomsUrl   = uriInfo.getBaseUriBuilder().path("rooms").build().toString();
+        String roomsUrl = uriInfo.getBaseUriBuilder().path("rooms").build().toString();
         String sensorsUrl = uriInfo.getBaseUriBuilder().path("sensors").build().toString();
 
         // LinkedHashMap preserves insertion order so the JSON keys appear in
